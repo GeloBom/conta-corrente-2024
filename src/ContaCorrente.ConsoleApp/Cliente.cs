@@ -2,7 +2,7 @@
 {
     public class Cliente
     {
-        public string numeroConta, nomeConta, cpf;
+        public string nomeConta, cpf;
 
         public Cliente(string nomeConta, string cpf)
         {

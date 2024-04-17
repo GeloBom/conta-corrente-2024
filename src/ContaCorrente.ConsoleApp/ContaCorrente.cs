@@ -1,4 +1,5 @@
-﻿namespace ContaCorrenteADP
+﻿
+namespace ContaCorrenteADP
 {
     public class ContaCorrente
     {
@@ -32,7 +33,7 @@
             {
                 saldo -= valor;
 
-                Movimentacao movimentacao = new Movimentacao(valor, "Saque");
+                Movimentacao movimentacao = new(valor, "Saque");
 
                 RegistrarMovimentacao(movimentacao);
             }
@@ -43,7 +44,7 @@
         {
             saldo += valor;
 
-            Movimentacao movimentacao = new Movimentacao(valor, "Deposito");
+            Movimentacao movimentacao = new(valor, "Deposito");
 
             RegistrarMovimentacao(movimentacao);
         }
@@ -68,6 +69,17 @@
         {
             Historico[qtdMovimentacoes] = movimentacao;
             qtdMovimentacoes++;
+        }
+
+        internal void MostrarExtrato()
+        {
+            for (int i = 0; i < Historico.Length; i++)
+            {
+                Movimentacao movimentacao = Historico[i];
+
+                if (movimentacao != null)
+                    Console.WriteLine($"{movimentacao.Tipo:F} R$ {movimentacao.Valor:F}");
+            }
         }
     }
 }
