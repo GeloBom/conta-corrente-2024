@@ -4,37 +4,65 @@
     {
         static void Main(string[] args)
         {
+            ContaCorrente contaCorrente1, contaCorrente2;
+            
+            Dados(out contaCorrente1, out contaCorrente2);
+
+            OperacoesSaque(contaCorrente1, contaCorrente2);
+
+            OperacoesDeposito(contaCorrente1, contaCorrente2);
+
+            OperacoesTransferencia(contaCorrente1, contaCorrente2);
+
+            OperacoesSaldo(contaCorrente1, contaCorrente2);
+           
+            OperacoesExtrato(contaCorrente1, contaCorrente2);
+
+            Console.ReadLine();
+        }
+       
+        private static void Dados(out ContaCorrente contaCorrente1, out ContaCorrente contaCorrente2)
+        {
             Cliente luiz = new Cliente("Luiz Gustavo H. Santos", "123.456.789-00");
-            ContaCorrente contaCorrente1 = new ContaCorrente(1, 1000, 4000, luiz);
-
+            contaCorrente1 = new ContaCorrente(1, 1000, 4000, luiz);
+            
             Cliente fulano = new Cliente("Fulano Siclano de beltrano", "000.000.000-12");
-            ContaCorrente contaCorrente2 = new ContaCorrente(2, 500, 1500, fulano);
-
-            //Cada conta terá operações de saques
+            contaCorrente2 = new ContaCorrente(2, 500, 1500, fulano);
+        }
+        
+        private static void OperacoesSaque(ContaCorrente contaCorrente1, ContaCorrente contaCorrente2)
+        {
             contaCorrente1.Sacar(200);
-            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Parabens, voce realizou um saque! Seu saldo atual é de R$ {contaCorrente1.VerSaldo():F}");
 
             contaCorrente2.Sacar(600);
             Console.WriteLine($"Parabens, voce realizou um saque! Seu saldo atual é de R$ {contaCorrente2.VerSaldo():F}");
-
-            //depósitos
+        }
+       
+        private static void OperacoesDeposito(ContaCorrente contaCorrente1, ContaCorrente contaCorrente2)
+        {
             contaCorrente1.Deposito(600);
             Console.WriteLine($"Parabens, voce realizou um deposito! Seu saldo atual é de R$ {contaCorrente1.VerSaldo():F}");
 
             contaCorrente2.Deposito(700);
             Console.WriteLine($"Parabens, voce realizou um deposito! Seu saldo atual é de R$ {contaCorrente2.VerSaldo():F}");
-
-            //transferência entre contas
+        }
+        
+        private static void OperacoesTransferencia(ContaCorrente contaCorrente1, ContaCorrente contaCorrente2)
+        {
             contaCorrente1.Transferencia(300, contaCorrente2);
             Console.WriteLine($"Parabens, voce realizou uma transferencia! Seu saldo atual é de R$ {contaCorrente1.VerSaldo():F}");
             Console.WriteLine($"Parabens, voce recebeu uma transferencia! Seu saldo atual é de R$ {contaCorrente2.VerSaldo():F}");
+        }
 
-            //visualização de Saldo
+        private static void OperacoesSaldo(ContaCorrente contaCorrente1, ContaCorrente contaCorrente2)
+        {
             contaCorrente1.VerSaldo();
             contaCorrente2.VerSaldo();
+        }
 
-            //visualização de extrato
+        private static void OperacoesExtrato(ContaCorrente contaCorrente1, ContaCorrente contaCorrente2)
+        {
             Console.WriteLine("\nExtrato conta 1:");
 
             for (int i = 0; i < contaCorrente1.Historico.Length; i++)
@@ -42,22 +70,17 @@
                 Movimentacao movimentacao = contaCorrente1.Historico[i];
 
                 if (movimentacao != null)
-                    Console.WriteLine(movimentacao.Tipo + " " + movimentacao.Valor);
+                    Console.WriteLine($"{movimentacao.Tipo:F} R$ {movimentacao.Valor:F}");
             }
-            Console.ReadLine();
+
+            Console.WriteLine("\nExtrato conta 2:");
+            for (int i = 0; i < contaCorrente2.Historico.Length; i++)
+            {
+                Movimentacao movimentacao = contaCorrente2.Historico[i];
+
+                if (movimentacao != null)
+                    Console.WriteLine($"{movimentacao.Tipo:F} R$ {movimentacao.Valor:F}");
+            }
         }
     }
 }
-
-//Uma conta corrente possui um número, um Saldo, um status que informa se ela é Especial ou não, um Limite e um histórico de movimentações.
-//Uma movimentação possui um valor e uma informação se ela é uma movimentação de crédito ou débito. 
-
-//Cada conta terá operações de saques, depósitos, visualização de Saldo, visualização de extrato e transferência entre contas. 
-
-//Cada conta vai ter o nome, o NomeConta e Cpf do cliente dono da conta.  
-
-//Uma conta corrente só pode fazer saques desde que o valor não exceda o Limite de saque que é o Limite + Saldo. Feito
-
-//Não precisa implementar a interação com usuário.
-
-
